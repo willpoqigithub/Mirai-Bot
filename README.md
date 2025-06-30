@@ -17,18 +17,22 @@ Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built o
 
 ### 1. Clone the Repository
 
+```bash
 git clone https://github.com/Aminulsordar/Mirai-Bot.git
-cd Mirai-Bot 
+cd Mirai-Bot
+``` 
 ---
 
 ### 2. Install Dependencies
 
+```bash
 npm install
+```
 
 ## 3. Start the Bot
-
+```bash
 npm start
-
+```
 > ✅ Before running, make sure you’ve added your appState.json file or configured login credentials correctly.
 
 
@@ -62,7 +66,7 @@ npm start
 
 ##⚙️Requirements
 
-Node.js v16 or later
+Node.js v20 or later
 
 Facebook account (for appState.json)
 
