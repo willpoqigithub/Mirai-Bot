@@ -14,7 +14,7 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/muslimhakcerbd/Up-try-mri/issues"
+      "url": "https://github.com/Aminulsordar/bot2/issues"
   },
   "keywords": [
       "bot",
@@ -26,12 +26,12 @@
       "cyber",
       "chat"
   ],
-  "author": "𝐈𝐬𝐥𝐚𝐦𝐢𝐜𝐤 𝐂𝐲𝐛𝐞𝐫 𝐂𝐡𝐚𝐭",
+  "author": "AMINUL-SORDAR",
   "license": "GPL-3.0",
   "bugs": {
-      "url": "https://github.com/muslimhakcerbd/Up-try-mri/issues"
+      "url": "https://github.com/Aminulsordar/bot2/issues"
   },
-  "homepage": "https://github.com/muslimhakcerbd/Up-try-mri/issues",
+  "homepage": "https://github.com/Aminulsordar/bot2/issues",
   "dependencies": {
       "@distube/ytdl-core": "^4.13.2",
       "@miraipr0ject/assets": "^1.0.9",
