@@ -1,3 +1,6 @@
+# 🤖 Mirai-Bot by Aminul Sordar
+# Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built on Node.js — crafted with ❤️ by [Aminul Sordar](https://github.com/Aminulsordar)!
+
 <br />
 <p align="center">
     <a href="https://github.com/miraiPr0ject/miraiv2">
@@ -8,8 +11,19 @@
 
 <p align="center">
     A simple Facebook Messenger Bot made by AMINUL-SORDAR
-- 
-    git clone https://github.com/miraipr0ject/miraiv2.git miraiv2
+
+    
+![Mirai-Bot Banner](https://raw.githubusercontent.com/Aminulsordar/Mirai-Bot/main/assets/banner.png) <!-- Optional: Replace or remove if not using a banner -->
+
+---
+
+## 🚀 How to Run the Bot
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Aminulsordar/Mirai-Bot.git
+cd Mirai-Bot
     ``` 
 
 
