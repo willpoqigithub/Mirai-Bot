@@ -17,9 +17,8 @@ Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built o
 
 ### 1. Clone the Repository
 
-```bash
 git clone https://github.com/Aminulsordar/Mirai-Bot.git
-cd Mirai-Bot ```
+cd Mirai-Bot 
 ---
 
 ### 2. Install Dependencies
@@ -61,7 +60,7 @@ npm start
 
 ---
 
-⚙️ Requirements
+##⚙️Requirements
 
 Node.js v16 or later
 
@@ -83,13 +82,11 @@ This project is licensed under the GNU General Public License v3.0 License - see
 <!-- CONTACT -->
 ## Contact
 
-CatalizCS - [Facebook](https://facebook.com/CatalizCS) - [GitHub](https://github.com/catalizcs) - miraiv2.official@gmail.com
-
-SpermLord - [GitHub](https://github.com/spermlord) - [Facebook](https://fb.me/MyNameIsSpermLord)
+Aminul-sordar - [Facebook](https://facebook.com/100071880593545) - [GitHub](https://github.com/Aminulsordar) - aminulsordar04@gmail.com
 
 -------------
 
-Thanks For Using CYBER-RAJIB
+Thanks For Using MIRAI-BOT
 
 > Release Date : 1/1/2025 at 00.00
 Dᴏɴ’ᴛ Fᴏʀɢᴇᴛ ᴛᴏ ɢɪᴠᴇ ᴀ sᴛᴀʀ ⭐️ ᴀꜰᴛᴇʀ ꜰᴏʀᴋ
