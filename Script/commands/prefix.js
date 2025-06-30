@@ -11,17 +11,36 @@ module.exports.config = {
   cooldowns: 5,
 };
 
-module.exports.handleEvent = async ({ api, event }) => {
+module.exports.languages = {
+  en: {
+    title: "🤍✨ ROBOT PREFIX ✨🤍",
+    botName: "BOT NAME",
+    prefix: "ROBOT PREFIX",
+    cmdCount: "ROBOT CMD",
+    time: "TIME",
+    group: "GROUP NAME"
+  },
+  vi: {
+    title: "🤍✨ TIỀN TỐ ROBOT ✨🤍",
+    botName: "TÊN BOT",
+    prefix: "TIỀN TỐ",
+    cmdCount: "LỆNH ĐÃ TẢI",
+    time: "THỜI GIAN",
+    group: "TÊN NHÓM"
+  }
+};
+
+module.exports.handleEvent = async ({ api, event, getText }) => {
   const body = event.body ? event.body.toLowerCase() : '';
   if (body.startsWith("prefix")) {
     const threadInfo = await api.getThreadInfo(event.threadID);
     const groupName = threadInfo.threadName || "This Group";
     const time = moment.tz("Asia/Dhaka").format("LLLL");
 
-    const text = `╭•┄┅═══❁🌺❁═══┅┄•╮\n🤍✨𝐑𝐎𝐁𝐎𝐓 𝐏𝐑𝐄𝐅𝐈𝐗✨🤍\n╰•┄┅═══❁🌺❁═══┅┄•╯\n\n𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 : ${global.config.BOTNAME}\n𝐑𝐎𝐁𝐎𝐓 𝐏𝐑𝐄𝐅𝐈𝐗 : ｢ ${global.config.PREFIX} ｣\n𝐑𝐎𝐁𝐎𝐓 𝐂𝐌𝐃: ｢ ${client.commands.size} ｣\n𝐓𝐈𝐌𝐄 : ${time}\n𝐆𝐑𝐎𝐔𝐏 𝐍𝐀𝐌𝐄: ${groupName}\n`;
+    const text = `╭•┄┅═══❁🌺❁═══┅┄•╮\n${getText("title")}\n╰•┄┅═══❁🌺❁═══┅┄•╯\n\n${getText("botName")} : ${global.config.BOTNAME}\n${getText("prefix")} : ｢ ${global.config.PREFIX} ｣\n${getText("cmdCount")}: ｢ ${client.commands.size} ｣\n${getText("time")}: ${time}\n${getText("group")}: ${groupName}`;
 
     api.sendMessage({ body: text }, event.threadID, event.messageID);
   }
 };
 
-module.exports.run = () => {}; // No command usage needed since always on
+module.exports.run = () => {}; // No manual run needed
