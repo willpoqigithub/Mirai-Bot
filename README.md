@@ -92,5 +92,3 @@ Aminul-sordar - [Facebook](https://facebook.com/100071880593545) - [GitHub](http
 
 Thanks For Using MIRAI-BOT
 
-> Release Date : 1/1/2025 at 00.00
-Dᴏɴ’ᴛ Fᴏʀɢᴇᴛ ᴛᴏ ɢɪᴠᴇ ᴀ sᴛᴀʀ ⭐️ ᴀꜰᴛᴇʀ ꜰᴏʀᴋ
