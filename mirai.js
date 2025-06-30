@@ -7,7 +7,7 @@ const login = require("fca-priyansh");
 const axios = require("axios");
 const listPackage = JSON.parse(readFileSync('./package.json')).dependencies;
 const listbuiltinModules = require("module").builtinModules;
-console.log(chalk.bold.hex("#00ffff").bold("[CYBER RAJIB]") + chalk.bold.hex("#00ffff").bold("Initializing variables..."));
+console.log(chalk.bold.hex("#00ffff").bold("[MIRAI-BOT]") + chalk.bold.hex("#00ffff").bold("Initializing variables..."));
 
 global.client = new Object({
     commands: new Map(),
@@ -339,9 +339,9 @@ loginApiData.setOptions(global.config.FCAOption)
         };
         if (!global.checkBan) logger(global.getText('cyber', 'warningSourceCode'), '[ GLOBAL BAN ]');
         global.client.api = loginApiData
-        logger(`CYBER`, '[ CYBER-RAJIB ]');
-        logger('THANK YOU FOR USING ISLAMICK CYBER CHAT ', 'CYBER');
-        logger("FIXED BY CYBER-RAJIB  [ ISLAMICK CYBER  CHAT ]\n░██╗░██████╗██╗░░░░░░█████╗░███╗░░░███╗\n██║██╔════╝██║░░░░░██╔══██╗████╗░████║\n██║╚█████╗░██║░░░░░███████║██╔████╔██║\n██║░╚═══██╗██║░░░░░██╔══██║██║╚██╔╝██║\n██║██████╔╝███████╗██║░░██║██║░╚═╝░██║\n╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝");
+        logger(`MIRAI-BOT`, '[ AMINULSORDAR ]');
+        logger('THANK YOU FOR USING MIRAI BOT', 'MIRAI-BOT');
+        logger("FIXED BY AMINUL-SORDAR  [ MIRAI-BOT ]\n░██╗░██████╗██╗░░░░░░█████╗░███╗░░░███╗\n██║██╔════╝██║░░░░░██╔══██╗████╗░████║\n██║╚█████╗░██║░░░░░███████║██╔████╔██║\n██║░╚═══██╗██║░░░░░██╔══██║██║╚██╔╝██║\n██║██████╔╝███████╗██║░░██║██║░╚═╝░██║\n╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝");
       //notif if bot is kaka on palang
 const momentt = require("moment-timezone").tz("Asia/Dhaka");
     const day = momentt.day();
