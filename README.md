@@ -19,13 +19,14 @@ Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built o
 
 ```bash
 git clone https://github.com/Aminulsordar/Mirai-Bot.git
-cd Mirai-Bot
+cd Mirai-Bot ```
+---
 
-2. Install Dependencies
+### 2. Install Dependencies
 
 npm install
 
-3. Start the Bot
+## 3. Start the Bot
 
 npm start
 
@@ -36,7 +37,7 @@ npm start
 
 ---
 
-🧩 Features
+## 🧩 Features
 
 ⚙️ Modular command & event loader
 
