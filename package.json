@@ -1,7 +1,7 @@
 {
-  "name": "AMINUL-BOT",
+  "name": "MIRAI-BOT",
   "version": "10.1.1",
-  "description": "MODE BY AMINUL-SORDAR",
+  "description": "MADE BY AMINUL-SORDAR",
   "main": "mirai.js",
   "engines": {
       "node": "20.x",
