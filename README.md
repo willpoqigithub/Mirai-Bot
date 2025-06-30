@@ -1,5 +1,4 @@
-# 🤖 Mirai-Bot by Aminul Sordar
-# Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built on Node.js — crafted with ❤️ by [Aminul Sordar](https://github.com/Aminulsordar)!
+Welcome to **Mirai-Bot**, a powerful, modular Facebook Messenger chatbot built on Node.js — crafted with ❤️ by [Aminul Sordar](https://github.com/Aminulsordar)!
 
 <br />
 <p align="center">
@@ -12,9 +11,6 @@
 <p align="center">
     A simple Facebook Messenger Bot made by AMINUL-SORDAR
 
-    
-![Mirai-Bot Banner](https://raw.githubusercontent.com/Aminulsordar/Mirai-Bot/main/assets/banner.png) <!-- Optional: Replace or remove if not using a banner -->
-
 ---
 
 ## 🚀 How to Run the Bot
@@ -24,7 +20,58 @@
 ```bash
 git clone https://github.com/Aminulsordar/Mirai-Bot.git
 cd Mirai-Bot
-    ``` 
+
+2. Install Dependencies
+
+npm install
+
+3. Start the Bot
+
+npm start
+
+> ✅ Before running, make sure you’ve added your appState.json file or configured login credentials correctly.
+
+
+
+
+---
+
+🧩 Features
+
+⚙️ Modular command & event loader
+
+🧠 Conversational AI with learning memory
+
+🌐 Express server + RESTful API
+
+🌍 Multilingual support (English, বাংলা, Tiếng Việt)
+
+🖥 Stylish terminal UI with logs
+
+🔁 Dynamic reloading (commands/events)
+
+📅 Cron jobs & scheduled messages
+
+🛠 Admin system, cooldowns & permission control
+
+📊 Web dashboard ready (Render/Vercel compatible)
+
+
+
+---
+
+⚙️ Requirements
+
+Node.js v16 or later
+
+Facebook account (for appState.json)
+
+Internet connection
+
+(Optional) PM2 for uptime management
+
+(Optional) Render or Vercel for web dashboard deployment
+
 
 
 <!-- LICENSE -->
