@@ -3,97 +3,47 @@ module.exports.config = {
   eventType: ["log:subscribe"],
   version: "1.0.1",
   credits: "MIRAI-BOT",
-  description: "Notification of bots or people entering groups with random gif/photo/video",
-  dependencies: {
-      "fs-extra": "",
-      "path": "",
-      "pidusage": ""
-  }
+  description: "Notification of bots or people entering groups without media"
 };
 
-module.exports.onLoad = function () {
-  const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
-  const { join } = global.nodemodule["path"];
-
-  const path = join(__dirname, "cache", "joinvideo");
-  if (existsSync(path)) mkdirSync(path, { recursive: true }); 
-
-  const path2 = join(__dirname, "cache", "joinvideo", "randomgif");
-  if (!existsSync(path2)) mkdirSync(path2, { recursive: true });
-
-  return;
-}
-
+module.exports.onLoad = () => {}; // GIF/Video cache আর দরকার নাই
 
 module.exports.run = async function({ api, event }) {
-  const { join } = global.nodemodule["path"];
   const { threadID } = event;
+
+  // যদি বটকে কেউ গ্রুপে অ্যাড করে
   if (event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
-      api.changeNickname(`[ ${global.config.PREFIX} ] • ${(!global.config.BOTNAME) ? " " : global.config.BOTNAME}`, threadID, api.getCurrentUserID());
-      const fs = require("fs");
-      return api.sendMessage("", event.threadID, () => api.sendMessage({body: `
-╭╭•┄┅═══❁🌺❁═══┅┄•╮
-🖤 আসসালামু আলাইকুম 🖤
-╰•┄┅═══❁🌺❁═══┅┄•╯
+    await api.changeNickname(`[ ${global.config.PREFIX} ] • ${global.config.BOTNAME || "BOT"}`, threadID, api.getCurrentUserID());
+    return api.sendMessage(
+      `╭╭•┄┅═══❁🌺❁═══┅┄•╮\n🖤 আসসালামু আলাইকুম 🖤\n╰•┄┅═══❁🌺❁═══┅┄•╯\n\n┏━━━━━━━━━━━━━━━━━┓\n┃ 🤗 𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐬𝐨 𝐦𝐮𝐜𝐡┃\n┃ 𝐟𝐨𝐫 𝐚𝐝𝐝𝐢𝐧𝐠 𝐦𝐞 𝐭𝐨 𝐲𝐨𝐮𝐫 ┃\n┃ 🫶 𝐠𝐫𝐨𝐮𝐩 𝐟𝐚𝐦𝐢𝐥𝐲!     ┃\n┗━━━━━━━━━━━━━━━━━┛\n\n📿 *ইনশাআল্লাহ আমি সবসময় আপনাদের সেবা করব।*\n🌸 *ভালো ব্যবহারে আরও ভালো সার্ভিস পাবেন।*\n\n╭─🎯 𝐔𝐒𝐄𝐅𝐔𝐋 𝐂𝐎𝐌𝐌𝐀𝐍𝐃𝐒 ─╮\n│ ℹ️ ${global.config.PREFIX}info – বট সম্পর্কিত তথ্য  \n│ 💬 ${global.config.PREFIX}jan – স্মার্ট AI এর সাথে চ্যাট করুন  \n│ ⏱️ ${global.config.PREFIX}uptime – বট চালু থাকার সময় দেখুন  \n╰────────────────────────╯\n\n🔧 𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 : *MIRAI-BOT*\n🧑‍💻 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐃 𝐁𝐘 : *Aminul Sordar*\n\n⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, 
+      threadID
+    );
+  } else {
+    try {
+      const { threadName, participantIDs } = await api.getThreadInfo(threadID);
+      const threadData = global.data.threadData.get(parseInt(threadID)) || {};
+      const nameArray = [];
+      const mentions = [];
+      let i = 0;
 
-┏━━━━━━━━━━━━━━━━━┓
-┃ 🤗 𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐬𝐨 𝐦𝐮𝐜𝐡┃
-┃ 𝐟𝐨𝐫 𝐚𝐝𝐝𝐢𝐧𝐠 𝐦𝐞 𝐭𝐨 𝐲𝐨𝐮𝐫 ┃
-┃ 🫶 𝐠𝐫𝐨𝐮𝐩 𝐟𝐚𝐦𝐢𝐥𝐲!     ┃
-┗━━━━━━━━━━━━━━━━━┛
+      for (const p of event.logMessageData.addedParticipants) {
+        nameArray.push(p.fullName);
+        mentions.push({ tag: p.fullName, id: p.userFbId });
+        i++;
+      }
 
-📿 *ইনশাআল্লাহ আমি সবসময় আপনাদের সেবা করব।*
-🌸 *ভালো ব্যবহারে আরও ভালো সার্ভিস পাবেন।*
+      const memberCount = participantIDs.length;
+      let msg = threadData.customJoin || 
+`╭•┄┅═══❁🌺❁═══┅┄•╮\n   আসসালামু আলাইকুম-!!🖤\n╰•┄┅═══❁🌺❁═══┅┄•╯ \n\n✨🆆🅴🅻🅻 🅲🅾🅼🅴 ✨\n\n❥ 𝐍𝐄𝐖~ 𝐌𝐄𝐌𝐁𝐄𝐑 : {name}\n\n🌸 আপনাকে আমাদের গ্রুপ –\n{threadName} – এ স্বাগতম!\n\nআপনি এখন আমাদের {soThanhVien} নং সদস্য 🥰\n\n╭•┄┅═══❁🌺❁═══┅┄•╮\n     🌸  MIRAI-BOT  🌸\n╰•┄┅═══❁🌺❁═══┅┄•╯`;
 
-╭─🎯 𝐔𝐒𝐄𝐅𝐔𝐋 𝐂𝐎𝐌𝐌𝐀𝐍𝐃𝐒 ─╮
-│ ℹ️ `${global.config.PREFIX}info` – বট সম্পর্কিত তথ্য  
-│ 💬 `${global.config.PREFIX}jan` – স্মার্ট AI এর সাথে চ্যাট করুন  
-│ ⏱️ `${global.config.PREFIX}uptime` – বট চালু থাকার সময় দেখুন  
-╰────────────────────────╯
+      msg = msg
+        .replace(/\{name}/g, nameArray.join(', '))
+        .replace(/\{soThanhVien}/g, memberCount)
+        .replace(/\{threadName}/g, threadName);
 
-🔧 𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 : *MIRAI-BOT*
-🧑‍💻 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐃 𝐁𝐘 : *Aminul Sordar*
-
-⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, attachment: fs.createReadStream(__dirname + "/cache/Join.mp4")} ,threadID));
+      return api.sendMessage({ body: msg, mentions }, threadID);
+    } catch (e) {
+      console.error("JoinNoti Error:", e);
+    }
   }
-  else {
-      try {
-          const { createReadStream, existsSync, mkdirSync, readdirSync } = global.nodemodule["fs-extra"];
-          let { threadName, participantIDs } = await api.getThreadInfo(threadID);
-
-          const threadData = global.data.threadData.get(parseInt(threadID)) || {};
-          const path = join(__dirname, "cache", "joinvideo");
-          const pathGif = join(path, `${threadID}.video`);
-
-          var mentions = [], nameArray = [], memLength = [], i = 0;
-
-          for (id in event.logMessageData.addedParticipants) {
-              const userName = event.logMessageData.addedParticipants[id].fullName;
-              nameArray.push(userName);
-              mentions.push({ tag: userName, id });
-              memLength.push(participantIDs.length - i++);
-          }
-          memLength.sort((a, b) => a - b);
-
-          (typeof threadData.customJoin == "undefined") ? msg = "╭•┄┅═══❁🌺❁═══┅┄•╮\n   আসসালামু আলাইকুম-!!🖤\n╰•┄┅═══❁🌺❁═══┅┄•╯ \n\n    ✨🆆🅴🅻🅻 🅲🅾🅼🅴✨\n\n                ❥𝐍𝐄𝐖~\n\n        ~🇲‌🇪‌🇲‌🇧‌🇪‌🇷‌~\n\n        [   {name} ]\n\n༆-✿ আপনাকে আমাদের࿐\n\n{threadName}\n\n🌺✨!!—এর পক্ষ-থেকে-!!✨🌺\n\n❤️🫰_ভালোবাস_অভিরাম_🫰❤️\n\n༆-✿আপনি_এই_গ্রুপের {soThanhVien} নং মেম্বার࿐\n\n╭•┄┅═══❁🌺❁═══┅┄•╮\n  🌸   MIRAI-BOT  🌸\n╰•┄┅═══❁🌺❁═══┅┄•╯" : msg  = threadData.customJoin;
-          msg = msg
-          .replace(/\{name}/g, nameArray.join(', '))
-          .replace(/\{type}/g, (memLength.length > 1) ?  'Friends' : 'Friend')
-          .replace(/\{soThanhVien}/g, memLength.join(', '))
-          .replace(/\{threadName}/g, threadName);
-
-          if (existsSync(path)) mkdirSync(path, { recursive: true });
-
-          const randomPath = readdirSync(join(__dirname, "cache", "joinGif", "randomgif"));
-
-          if (existsSync(pathGif)) formPush = { body: msg, attachment: createReadStream(pathvideo), mentions }
-          else if (randomPath.length != 0) {
-              const pathRandom = join(__dirname, "cache", "joinGif", "randomgif", `${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
-              formPush = { body: msg, attachment: createReadStream(pathRandom), mentions }
-          }
-          else formPush = { body: msg, mentions }
-
-          return api.sendMessage(formPush, threadID);
-      } catch (e) { return console.log(e) };
-  }
-            }
+};
