@@ -31,16 +31,30 @@ module.exports.run = async function({ api, event }) {
   if (event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
       api.changeNickname(`[ ${global.config.PREFIX} ] • ${(!global.config.BOTNAME) ? " " : global.config.BOTNAME}`, threadID, api.getCurrentUserID());
       const fs = require("fs");
-      return api.sendMessage("", event.threadID, () => api.sendMessage({body: `╭•┄┅═══❁🌺❁═══┅┄•╮\n   আসসালামু আলাইকুম-!!🖤💫\n╰•┄┅═══❁🌺❁═══┅┄•╯
+      return api.sendMessage("", event.threadID, () => api.sendMessage({body: `
+╭╭•┄┅═══❁🌺❁═══┅┄•╮
+🖤 আসসালামু আলাইকুম 🖤
+╰•┄┅═══❁🌺❁═══┅┄•╯
 
-________________________
-𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐬𝐨 𝐦𝐮𝐜𝐡 𝐟𝐨𝐫 𝐚dd𝐢𝐧𝐠 𝐦𝐞 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐢-𝐠𝐫𝐨𝐮𝐩-🖤🤗\n\n𝐈 𝐰𝐢𝐥𝐥 𝐚𝐥𝐰𝐚𝐲𝐬 𝐬𝐞𝐫𝐯𝐞 𝐲𝐨𝐮 𝐢𝐧𝐚𝐡𝐚𝐥𝐥𝐚𝐡 🌺❤️-!!
-________________________\n\n𝐓𝐨 𝐯𝐢𝐞𝐰 𝐚𝐧𝐲 𝐜𝐨𝐦𝐦𝐚𝐧d
+┏━━━━━━━━━━━━━━━━━┓
+┃ 🤗 𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐬𝐨 𝐦𝐮𝐜𝐡┃
+┃ 𝐟𝐨𝐫 𝐚𝐝𝐝𝐢𝐧𝐠 𝐦𝐞 𝐭𝐨 𝐲𝐨𝐮𝐫 ┃
+┃ 🫶 𝐠𝐫𝐨𝐮𝐩 𝐟𝐚𝐦𝐢𝐥𝐲!     ┃
+┗━━━━━━━━━━━━━━━━━┛
 
-${global.config.PREFIX}Help\n${global.config.PREFIX} Manu
+📿 *ইনশাআল্লাহ আমি সবসময় আপনাদের সেবা করব।*
+🌸 *ভালো ব্যবহারে আরও ভালো সার্ভিস পাবেন।*
 
-𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 :MIRAI-BOT
-\n\n⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, attachment: fs.createReadStream(__dirname + "/cache/king.mp4")} ,threadID));
+╭─🎯 𝐔𝐒𝐄𝐅𝐔𝐋 𝐂𝐎𝐌𝐌𝐀𝐍𝐃𝐒 ─╮
+│ ℹ️ `${global.config.PREFIX}info` – বট সম্পর্কিত তথ্য  
+│ 💬 `${global.config.PREFIX}jan` – স্মার্ট AI এর সাথে চ্যাট করুন  
+│ ⏱️ `${global.config.PREFIX}uptime` – বট চালু থাকার সময় দেখুন  
+╰────────────────────────╯
+
+🔧 𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 : *MIRAI-BOT*
+🧑‍💻 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐃 𝐁𝐘 : *Aminul Sordar*
+
+⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, attachment: fs.createReadStream(__dirname + "/cache/king.mp4")} ,threadID));
   }
   else {
       try {
