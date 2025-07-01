@@ -1,58 +1,58 @@
+const moment = require("moment-timezone");
+
 module.exports.config = {
   name: "leave",
   eventType: ["log:unsubscribe"],
-  version: "1.0.0",
-  credits: "MIRAI-BOT",
-  description: "Notify the Bot or the person leaving the group with a random gif/photo/video",
-  dependencies: {
-    "fs-extra": "",
-    "path": ""
-  }
+  version: "2.0.0",
+  credits: "Decorated by Aminul Sordar based on MIRAI-BOT",
+  description: "Send a decorated goodbye message when someone leaves the group.",
+  dependencies: {}
 };
 
-module.exports.onLoad = function () {
-    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
-    const { join } = global.nodemodule["path"];
+module.exports.onLoad = () => {
+  // No need for any folders — media removed
+};
 
-  const path = join(__dirname, "cache", "leaveGif", "randomgif");
-  if (existsSync(path)) mkdirSync(path, { recursive: true });	
-
-  const path2 = join(__dirname, "cache", "leaveGif", "randomgif");
-    if (!existsSync(path2)) mkdirSync(path2, { recursive: true });
-
-    return;
-}
-
-module.exports.run = async function({ api, event, Users, Threads }) {
+module.exports.run = async function ({ api, event, Users, Threads }) {
+  // If the bot leaves, skip the message
   if (event.logMessageData.leftParticipantFbId == api.getCurrentUserID()) return;
-  const { createReadStream, existsSync, mkdirSync, readdirSync } = global.nodemodule["fs-extra"];
-  const { join } =  global.nodemodule["path"];
+
   const { threadID } = event;
-  const moment = require("moment-timezone");
-  const time = moment.tz("Asia/Dhaka").format("DD/MM/YYYY || HH:mm:s");
-  const hours = moment.tz("Asia/Dhaka").format("HH");
-  const data = global.data.threadData.get(parseInt(threadID)) || (await Threads.getData(threadID)).data;
+
+  // Get current time and session
+  const time = moment.tz("Asia/Dhaka").format("DD/MM/YYYY || HH:mm:ss");
+  const hour = parseInt(moment.tz("Asia/Dhaka").format("HH"));
+  const session =
+    hour < 10 ? "🌅 Morning" :
+    hour <= 12 ? "🌤️ Noon" :
+    hour <= 18 ? "🌇 Afternoon" :
+    "🌙 Evening";
+
+  // Get group data and user info
+  const threadData = global.data.threadData.get(threadID) || (await Threads.getData(threadID)).data;
   const name = global.data.userName.get(event.logMessageData.leftParticipantFbId) || await Users.getNameUser(event.logMessageData.leftParticipantFbId);
-  const type = (event.author == event.logMessageData.leftParticipantFbId) ? "leave" : "managed";
-  const path = join(__dirname, "events", "123.mp4");
-  const pathGif = join(path, `${threadID}123.mp4`);
-  var msg, formPush
+  const type = (event.author == event.logMessageData.leftParticipantFbId) ? "left on their own" : "was removed";
 
-  if (existsSync(path)) mkdirSync(path, { recursive: true });
+  // Default decorated message
+  let msg = typeof threadData.customLeave === "undefined"
+    ? `╭───────────────╮\n` +
+      ` 🙋‍♂️ Member Left Notice\n` +
+      `╰───────────────╯\n\n` +
+      `👤 Name: ✨ ${name} ✨\n` +
+      `📤 Status: ${type}\n` +
+      `🕒 Time: ${time}\n` +
+      `📆 Session: ${session}\n\n` +
+      `💌 We hope you'll always remember the good times here.\n` +
+      `🔕 Don't follow their path if they did wrong.\n\n` +
+      `🕌 Stay united in this Islamic group 💙`
+    : threadData.customLeave;
 
-(typeof data.customLeave == "undefined") ? msg = "•—»✨ {name} ✨«—•\n ╭•┄┅═══❁🌺❁═══┅┄•╮ \n         ｢ 𝗔𝗟𝗟𝗔𝗛𝗔𝗙𝗘𝗭 ｣     \n ╰•┄┅═══❁🌺❁═══┅┄•╯ \n  •—»✨       {type}  ✨«—•\n\n•—»✨ বড্ড ভুল করলে ✨«—•  \n\n•—»✨ {name} ✨«—•\n\nইসলামিক গ্রুপ থেকে বের হয়ে \n\n যে এই সুন্দর  ইসলামিক গ্রুপ ছেরে চলে গেছে তার অনুসরণ তুমরা করো নাহ__//💙🥺-!! {session} || {time}" : msg = data.customLeave;
-  msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type).replace(/\{session}/g, hours <= 10 ? "leave time" : 
-    hours > 10 && hours <= 12 ? "__" :
-    hours > 12 && hours <= 18 ? "__" : "__").replace(/\{time}/g, time);  
+  // Replace placeholders in customLeave message
+  msg = msg
+    .replace(/\{name}/g, name)
+    .replace(/\{type}/g, type)
+    .replace(/\{time}/g, time)
+    .replace(/\{session}/g, session);
 
-  const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randomgif"));
-
-  if (existsSync(pathGif)) formPush = { body: msg, attachment: createReadStream(pathGif) }
-  else if (randomPath.length != 0) {
-    const pathRandom = join(__dirname, "cache", "leaveGif", "randomgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
-    formPush = { body: msg, attachment: createReadStream(pathRandom) }
-  }
-  else formPush = { body: msg }
-
-  return api.sendMessage(formPush, threadID);
-                            }
+  return api.sendMessage({ body: msg }, threadID);
+};
