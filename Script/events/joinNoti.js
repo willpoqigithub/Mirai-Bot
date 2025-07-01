@@ -54,7 +54,7 @@ module.exports.run = async function({ api, event }) {
 🔧 𝐁𝐎𝐓 𝐍𝐀𝐌𝐄 : *MIRAI-BOT*
 🧑‍💻 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐃 𝐁𝐘 : *Aminul Sordar*
 
-⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, attachment: fs.createReadStream(__dirname + "/cache/lv_0_20250702001129.mp4")} ,threadID));
+⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆`, attachment: fs.createReadStream(__dirname + "/cache/Join.mp4")} ,threadID));
   }
   else {
       try {
