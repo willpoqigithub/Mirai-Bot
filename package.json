@@ -14,7 +14,7 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/Aminulsordar/bot2/issues"
+      "url": "https://github.com/Aminulsordar/Mirai-Bot.git"
   },
   "keywords": [
       "bot",
@@ -29,9 +29,9 @@
   "author": "AMINUL-SORDAR",
   "license": "GPL-3.0",
   "bugs": {
-      "url": "https://github.com/Aminulsordar/bot2/issues"
+      "url": "https://github.com/Aminulsordar/Mirai-Bot/issues"
   },
-  "homepage": "https://github.com/Aminulsordar/bot2/issues",
+  "homepage": "https://github.com/Aminulsordar",
   "dependencies": {
       "@distube/ytdl-core": "^4.13.2",
       "@miraipr0ject/assets": "^1.0.9",
