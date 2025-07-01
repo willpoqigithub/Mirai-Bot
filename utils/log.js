@@ -24,13 +24,13 @@ module.exports = (_0x44107f, _0x509531) => {
 module.exports.loader = (_0x4705f2, _0x10a189) => {
   switch (_0x10a189) {
     case "warn":
-      console.log(chalk.bold.hex(randomColor()).bold(" MIRAI ERROR•—»✨ ") + chalk.bold.hex("#8B8878").bold(_0x4705f2) + chalk.bold.hex("FF00DD")(''));
+      console.log(chalk.bold.hex(randomColor()).bold(" MIRAI-BOT ERROR•—»✨ ") + chalk.bold.hex("#8B8878").bold(_0x4705f2) + chalk.bold.hex("FF00DD")(''));
       break;
     case "error":
-      console.log(chalk.bold.hex(randomColor()).bold(" MIRAI ERROR•—»✨ ") + _0x4705f2 + chalk.bold.hex("5EFF00")(''));
+      console.log(chalk.bold.hex(randomColor()).bold(" MIRAI-BOT ERROR•—»✨ ") + _0x4705f2 + chalk.bold.hex("5EFF00")(''));
       break;
     default:
-      console.log(chalk.bold.hex(randomColor()).bold("MIRAI•—»✨ ") + chalk.bold.hex(randomColor()).bold(_0x4705f2) + chalk.bold.hex("FFF0000")(''));
+      console.log(chalk.bold.hex(randomColor()).bold("MIRAI-BOT•—»✨ ") + chalk.bold.hex(randomColor()).bold(_0x4705f2) + chalk.bold.hex("FFF0000")(''));
       break;
   }
 };
