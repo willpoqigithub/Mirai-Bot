@@ -25,17 +25,17 @@ module.exports.languages = {
 
  -Game ➪ Fire Lover 
 
- -Facebook ➪ https://www.facebook.com/br4nd.abir.your.next.bf.fan
+ -Facebook ➪ https://www.facebook.com/100071880593545
 
  -LC ➪ "Hey, I say I love you because I do" 🥱
 
- -Page ➪ https://www.facebook.com/br4nd.abir.your.next.bf.fan
+ -Page ➪ https://www.facebook.com/share/g/1EHHK6Rb7H/
 
  -FIRE ➪ ️༒ 𝐂𝐄𝐎℅ABIR-❯⸙๏🥺🔫̷
 
  -WhatsApp + Imo ➪ No gf so not giving 🥱01704407109
 
- -Telegram ➪ 01704407109 🥺🔥🥰
+ -Telegram ➪ +8801704407109 🥺🔥🥰
 
  -Mail ➪ Inbox me if needed
 
@@ -58,17 +58,17 @@ module.exports.languages = {
 
  -Game yêu thích ➪ Fire Lover
 
- -Facebook ➪ https://www.facebook.com/br4nd.abir.your.next.bf.fan
+ -Facebook ➪ https://www.facebook.com/100071880593545
 
  -LC ➪ "Nói yêu là vì thực sự yêu" 🥱
 
- -Trang ➪ https://www.facebook.com/br4nd.abir.your.next.bf.fan
+ -Trang ➪ https://www.facebook.com/share/g/1EHHK6Rb7H/
 
  -FIRE ➪ ️༒ 𝐂𝐄𝐎℅ABIR-❯⸙๏🥺🔫̷
 
  -WhatsApp + Imo ➪ Không có người yêu nên không cho 🥱01704407109
 
- -Telegram ➪ 01704407109 🥺🔥🥰
+ -Telegram ➪ +8801704407109 🥺🔥🥰
 
  -Mail ➪ Inbox nếu cần
 
