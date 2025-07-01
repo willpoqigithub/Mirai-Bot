@@ -89,12 +89,12 @@ This project is licensed under the GNU General Public License v3.0 License - see
 Aminul-sordar - [Facebook](https://facebook.com/100071880593545) - [GitHub](https://github.com/Aminulsordar) - aminulsordar04@gmail.com
 
 -------------
-// ====================================================
-// 🔰 Real Credit: Priyansh Rajput
-// 🤝 Co-Credit: Rajib (Islamic Cyber Chat)
-// 📁 GitHub use only | Respect the original contributors
-// ====================================================
+## 🧠 Credits
 
+- 👑 **Real Credit:** [Priyansh Rajput](https://github.com/PriyanshRajput)
+- 🤝 **Co-Credit:** Rajib (Islamic Cyber Chat)
 
+> Many thanks to these amazing contributors for their valuable work and inspiration!
+> 
 Thanks For Using MIRAI-BOT
 
