@@ -1,95 +1,156 @@
+const axios = require("axios");
+const fetch = require("node-fetch");
+const fs = require("fs");
+const path = require("path");
+const ytSearch = require("yt-search");
+
 module.exports.config = {
-	name: "video",
-	version: "1.0.1",
-	hasPermssion: 0,
-	credits: "CatalizCS",
-	description: "Phát video thông qua link YouTube hoặc từ khoá tìm kiếm",
-	commandCategory: "media",
-	usages: "[Text]",
-	cooldowns: 10,
-	usages: "[link or content need search]",
-	cooldowns: 10,
-	dependencies: {
-		"ytdl-core": "",
-		"simple-youtube-api": "",
-		"fs-extra": ""
-	},
-	envConfig: {
-		"YOUTUBE_API": "AIzaSyB6pTkV2PM7yLVayhnjDSIM0cE_MbEtuvo"
-	}
+  name: "video",
+  version: "1.5.0",
+  hasPermssion: 0,
+  credits: "ArYAN - Decor by Aminul Sordar",
+  description: "🎬 Download YouTube video or audio by name or URL",
+  commandCategory: "🎵 Media",
+  usages: "/video <title>\n/video -v <URL>\n/video -a <URL>",
+  cooldowns: 5,
+  dependencies: {
+    axios: "",
+    "node-fetch": "",
+    "yt-search": ""
+  }
 };
 
 module.exports.languages = {
-	"vi": {
-		"overSizeAllow": "Không thể gửi file vì dung lượng lớn hơn 25MB.",
-		"returnError": "Đã xảy ra vấn đề khi đang xử lý request, lỗi: %1",
-		"cantProcess": "Không thể xử lý yêu cầu của bạn!",
-		"missingInput": "Phần tìm kiếm không được để trống!",
-		"returnList": "🎼 Có %1 kết quả trùng với từ khoá tìm kiếm của bạn: \n%2\nHãy reply(phản hồi) chọn một trong những tìm kiếm trên"
-	},
-	"en": {
-		"overSizeAllow": "Can't send fine because it's bigger than 25MB.",
-		"returnError": "Have some problem when handling request, error: %1",
-		"cantProcess": "Can't handle your request!",
-		"missingInput": "Search section must not be blank!",
-		"returnList": "🎼 Have %1 results with your imput: \n%2\nPlease reply choose 1 of these result"
-	}
-}
+  en: {
+    missingInput: "❌ Please enter a title or valid YouTube URL.",
+    invalidURL: "❌ Invalid YouTube URL.",
+    notFound: "❌ No results found.",
+    longVideo: "⚠️ This video is too long (%1). Only videos under 10 minutes are supported.",
+    downloading: "📥 Fetching your media...",
+    timeout: "⚠️ Server timeout. Please try again later.",
+    aborted: "⚠️ Request took too long and was aborted.",
+    failedDownload: "❌ Download failed with status: %1",
+    failedAPI: "❌ API Error: %1"
+  },
+  vi: {
+    missingInput: "❌ Vui lòng nhập tiêu đề hoặc URL YouTube hợp lệ.",
+    invalidURL: "❌ URL YouTube không hợp lệ.",
+    notFound: "❌ Không tìm thấy kết quả nào.",
+    longVideo: "⚠️ Video này quá dài (%1). Chỉ hỗ trợ video dưới 10 phút.",
+    downloading: "📥 Đang tải phương tiện...",
+    timeout: "⚠️ Máy chủ quá tải, vui lòng thử lại sau.",
+    aborted: "⚠️ Yêu cầu mất quá nhiều thời gian và đã bị hủy.",
+    failedDownload: "❌ Tải xuống thất bại với mã: %1",
+    failedAPI: "❌ Lỗi API: %1"
+  }
+};
 
-module.exports.handleReply = async function({ api, event, handleReply }) {
-	const ytdl = global.nodemodule["ytdl-core"];
-	const { createReadStream, createWriteStream, unlinkSync, statSync } = global.nodemodule["fs-extra"];
-	try {
-		ytdl(handleReply.link[event.body - 1])
-			.pipe(createWriteStream(__dirname + `/cache/${handleReply.link[event.body - 1]}.mp4`))
-			.on("close", () => {
-				if (statSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.mp4`).size > 26214400) return api.sendMessage(getText("overSizeAllow"), event.threadID, () => unlinkSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.mp4`), event.messageID);
-				else return api.sendMessage({attachment: createReadStream(__dirname + `/cache/${handleReply.link[event.body - 1]}.mp4`)}, event.threadID, () => unlinkSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.mp4`), event.messageID)
-			})
-			.on("error", (error) => api.sendMessage(getText("returnError", error), event.threadID, event.messageID));
-	}
-	catch { api.sendMessage(getText("cantProcess"), event.threadID, event.messageID) }
-	return api.unsendMessage(handleReply.messageID);
-}
+module.exports.run = async function ({ api, event, args, getText }) {
+  const apiKey = "itzaryan";
+  const threadID = event.threadID;
+  const messageID = event.messageID;
+  let videoId, topResult, type = "video";
 
-module.exports.run = async function({ api, event, args, getText }) {
-	const ytdl = global.nodemodule["ytdl-core"];
-	const YouTubeAPI = global.nodemodule["simple-youtube-api"];
-	const { createReadStream, createWriteStream, unlinkSync, statSync } = global.nodemodule["fs-extra"];
-	
-	const youtube = new YouTubeAPI(global.configModule[this.config.name].YOUTUBE_API);
-	
-	if (args.length == 0 || !args) return api.sendMessage(getText("missingInput"), event.threadID, event.messageID);
-	const keywordSearch = args.join(" ");
-	const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
-	const urlValid = videoPattern.test(args[0]);
-	
-	if (urlValid) {
-		try {
-			var id = args[0].split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-            (id[2] !== undefined) ? id = id[2].split(/[^0-9a-z_\-]/i)[0] : id = id[0];
-			ytdl(args[0])
-				.pipe(createWriteStream(__dirname + `/cache/${id}.mp4`))
-				.on("close", () => {
-					if (statSync(__dirname + `/cache/${id}.mp4`).size > 26214400) return api.sendMessage(getText("overSizeAllow"), event.threadID, () => unlinkSync(__dirname + `/cache/${id}.mp4`), event.messageID);
-					else return api.sendMessage({attachment: createReadStream(__dirname + `/cache/${id}.mp4`)}, event.threadID, () => unlinkSync(__dirname + `/cache/${id}.mp4`) , event.messageID)
-				})
-				.on("error", (error) => api.sendMessage(getText("returnError", error), event.threadID, event.messageID));
-		}
-		catch { return api.sendMessage(getText("cantProcess"), event.threadID, event.messageID) }
-	}
-	else {
-		try {
-			var link = [], msg = "", num = 1;
-			let results = await youtube.searchVideos(keywordSearch, 5);
-			for (const value of results) {
-				if (typeof value.id !== 'undefined') {;
-					link.push(value.id);
-					msg += (`${num++}. ${value.title}\n`);
-				}
-			}
-			return api.sendMessage(getText("returnList", link.length, msg), event.threadID,(error, info) => global.client.handleReply.push({ name: this.config.name, messageID: info.messageID, author: event.senderID, link }), event.messageID);
-		}
-		catch (error) { return api.sendMessage(getText("returnError", JSON.stringify(error)), event.threadID, event.messageID) }
-	}
-}
+  const processingMessage = await api.sendMessage(getText("downloading"), threadID, null, messageID);
+
+  try {
+    const mode = args[0];
+    const inputArg = args[1];
+
+    if ((mode === "-v" || mode === "-a") && inputArg) {
+      type = mode === "-a" ? "audio" : "video";
+
+      let urlObj;
+      try {
+        urlObj = new URL(inputArg);
+      } catch {
+        throw new Error(getText("invalidURL"));
+      }
+
+      if (urlObj.hostname === "youtu.be") {
+        videoId = urlObj.pathname.slice(1);
+      } else if (urlObj.hostname.includes("youtube.com")) {
+        const urlParams = new URLSearchParams(urlObj.search);
+        videoId = urlParams.get("v");
+      }
+
+      if (!videoId) throw new Error(getText("invalidURL"));
+
+      const searchResults = await ytSearch(videoId);
+      if (!searchResults || !searchResults.videos.length)
+        throw new Error(getText("notFound"));
+
+      topResult = searchResults.videos[0];
+    } else {
+      const query = args.join(" ");
+      if (!query) throw new Error(getText("missingInput"));
+
+      const searchResults = await ytSearch(query);
+      if (!searchResults || !searchResults.videos.length)
+        throw new Error(getText("notFound"));
+
+      topResult = searchResults.videos[0];
+      videoId = topResult.videoId;
+    }
+
+    const timestamp = topResult.timestamp;
+    const parts = timestamp.split(":").map(Number);
+    const durationSeconds = parts.length === 3
+      ? parts[0] * 3600 + parts[1] * 60 + parts[2]
+      : parts[0] * 60 + parts[1];
+
+    if (durationSeconds > 600)
+      throw new Error(getText("longVideo", timestamp));
+
+    api.setMessageReaction("⌛", messageID, () => {}, true);
+
+    const apiUrl = `https://www-xyz-free.vercel.app/aryan/youtube?id=${videoId}&type=${type}&apikey=${apiKey}`;
+    let downloadResponse;
+    try {
+      downloadResponse = await axios.get(apiUrl, { timeout: 30000 });
+    } catch (error) {
+      if (error.response?.status === 504) {
+        throw new Error(getText("timeout"));
+      } else if (error.code === "ECONNABORTED") {
+        throw new Error(getText("aborted"));
+      } else {
+        throw new Error(getText("failedAPI", error.message));
+      }
+    }
+
+    const downloadUrl = downloadResponse.data.downloadUrl;
+    const response = await fetch(downloadUrl);
+    if (!response.ok) {
+      throw new Error(getText("failedDownload", response.status));
+    }
+
+    const ext = type === "audio" ? "mp3" : "mp4";
+    const safeTitle = topResult.title.replace(/[\\/:*?"<>|]/g, "").substring(0, 50);
+    const filename = `${safeTitle}.${ext}`;
+    const downloadPath = path.join(__dirname, filename);
+    const buffer = await response.buffer();
+    fs.writeFileSync(downloadPath, buffer);
+
+    api.setMessageReaction("✅", messageID, () => {}, true);
+
+    await api.sendMessage({
+      attachment: fs.createReadStream(downloadPath),
+      body:
+        `${type === "audio" ? "🎵 AUDIO INFO" : "🎬 VIDEO INFO"}\n` +
+        `━━━━━━━━━━━━━━━\n` +
+        `📌 Title: ${topResult.title}\n` +
+        `🎞 Duration: ${topResult.timestamp}\n` +
+        `📺 Channel: ${topResult.author.name}\n` +
+        `👁 Views: ${topResult.views.toLocaleString()}\n` +
+        `📅 Uploaded: ${topResult.ago}`
+    }, threadID, () => {
+      fs.unlinkSync(downloadPath);
+      api.unsendMessage(processingMessage.messageID);
+    }, messageID);
+
+  } catch (err) {
+    console.error("Error:", err.message);
+    api.setMessageReaction("❌", messageID, () => {}, true);
+    return api.sendMessage("❌ " + err.message, threadID, messageID);
+  }
+};
