@@ -9,32 +9,53 @@ module.exports.config = {
 	cooldowns: 5
 };
 
-module.exports.handleEvent = async function ({ event, api }) {
-	const body = event.body || "";
-	const triggers = ["frok", "forklink", "myfrok", "githublink", "github"];
+module.exports.languages = {
+	en: {
+		title: "🤖 Aminul's GitHub Bot Forks",
+		list: `🔹 Mirai-Bot\n🌐 https://github.com/Aminulsordar/Mirai-Bot
 
-	if (triggers.some(trigger => body.toLowerCase().startsWith(trigger))) {
-		api.sendMessage(`🤖 Aminul's GitHub Bot Forks:
+🔹 Auto-Bot\n🌐 https://github.com/Aminulsordar/Auto
 
-🔹 Mirai-Bot
-🌐 https://github.com/Aminulsordar/Mirai-Bot
+🔹 GoatBot - AMINUL-X-BOT\n🌐 https://github.com/Aminulsordar/AMINUL-X-BOT
 
-🔹 Auto-Bot
-🌐 https://github.com/Aminulsordar/Auto
+🔹 GoatBot Fix\n🌐 https://github.com/Aminulsordar/Gaot-fix`,
+		footer: `📌 Facebook: https://www.facebook.com/profile.php?id=100071880593545
+📌 GitHub: https://github.com/Aminulsordar`
+	},
+	ar: {
+		title: "🤖 فوركات بوتات أمينول على GitHub",
+		list: `🔹 Mirai-Bot\n🌐 https://github.com/Aminulsordar/Mirai-Bot
 
-🔹 GoatBot - AMINUL-X-BOT
-🌐 https://github.com/Aminulsordar/AMINUL-X-BOT
+🔹 Auto-Bot\n🌐 https://github.com/Aminulsordar/Auto
 
-🔹 GoatBot Fix
-🌐 https://github.com/Aminulsordar/Gaot-fix
+🔹 GoatBot - AMINUL-X-BOT\n🌐 https://github.com/Aminulsordar/AMINUL-X-BOT
 
-━━━━━━━━━━━━━━━
+🔹 GoatBot Fix\n🌐 https://github.com/Aminulsordar/Gaot-fix`,
+		footer: `📌 فيسبوك: https://www.facebook.com/profile.php?id=100071880593545
+📌 GitHub: https://github.com/Aminulsordar`
+	},
+	vi: {
+		title: "🤖 Các bản fork bot của Aminul trên GitHub",
+		list: `🔹 Mirai-Bot\n🌐 https://github.com/Aminulsordar/Mirai-Bot
 
-📌 Facebook: https://www.facebook.com/profile.php?id=100071880593545
-📌 GitHub: https://github.com/Aminulsordar`, event.threadID, event.messageID);
+🔹 Auto-Bot\n🌐 https://github.com/Aminulsordar/Auto
+
+🔹 GoatBot - AMINUL-X-BOT\n🌐 https://github.com/Aminulsordar/AMINUL-X-BOT
+
+🔹 GoatBot Fix\n🌐 https://github.com/Aminulsordar/Gaot-fix`,
+		footer: `📌 Facebook: https://www.facebook.com/profile.php?id=100071880593545
+📌 GitHub: https://github.com/Aminulsordar`
 	}
 };
 
-module.exports.run = async function () {
-	// Not used — handled via no-prefix keywords in handleEvent
+module.exports.handleEvent = async function ({ event, api, getText }) {
+	const body = event.body?.toLowerCase() || "";
+	const triggers = ["frok", "forklink", "myfrok", "githublink", "github"];
+
+	if (triggers.some(trigger => body.startsWith(trigger))) {
+		const message = `╭━〔 ${getText("title")} 〕━╮\n\n${getText("list")}\n\n━━━━━━━━━━━━━━━\n${getText("footer")}`;
+		api.sendMessage(message, event.threadID, event.messageID);
+	}
 };
+
+module.exports.run = () => {}; // Not used (no-prefix only)
