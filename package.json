@@ -1,7 +1,7 @@
 {
   "name": "MIRAI-BOT",
   "version": "10.1.1",
-  "description": "MADE BY AMINUL-SORDAR",
+  "description": "MADE BY WILLY MAGUSIB,
   "main": "mirai.js",
   "engines": {
       "node": "20.x",
@@ -26,7 +26,7 @@
       "messengerbot",
       "chatbot"
   ],
-  "author": "AMINUL-SORDAR",
+  "author": "WILLY MAGUSIB",
   "license": "GPL-3.0",
   "bugs": {
       "url": "https://github.com/Aminulsordar/Mirai-Bot/issues"
