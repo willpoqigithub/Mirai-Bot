@@ -14,7 +14,7 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/Aminulsordar/Mirai-Bot.git"
+      "url": "https://github.com/willpoqigithub/Mirai-Bot/git"
   },
   "keywords": [
       "bot",
@@ -29,7 +29,7 @@
   "author": "WILLY MAGUSIB",
   "license": "GPL-3.0",
   "bugs": {
-      "url": "https://github.com/Aminulsordar/Mirai-Bot/issues"
+      "url": "https://github.com/willpoqigithub/Mirai-Bot/issues"
   },
   "homepage": "https://github.com/willpoqigithub",
   "dependencies": {
