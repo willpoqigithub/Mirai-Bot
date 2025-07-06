@@ -20,12 +20,12 @@ module.exports.run = async ({ event, api, Threads, Users }) => {
     api.addUserToGroup(event.logMessageData.leftParticipantFbId, event.threadID, (error, info) => {
       if (error) {
         api.sendMessage(
-          `Sorry boss 😞\nUnable to re-add ${name}.\nThey may have blocked the bot or their Messenger is disabled.\n⋆✦⎯⎯⎯⎯⎯⎯⎯⎯✦⋆\n𝐂𝐫𝐞𝐚𝐭𝐨𝐫 ➢ AMINUL-SORDAR`,
+          `Sorry boss 😞\nUnable to re-add ${name}.\nThey may have blocked the bot or their Messenger is disabled.\n⋆✦⎯⎯⎯⎯⎯⎯⎯⎯✦⋆\n𝐂𝐫𝐞𝐚𝐭𝐨𝐫 ➢ Willy-Magusib`,
           event.threadID
         );
       } else {
         api.sendMessage(
-          `${name} left the group and has been successfully re-added.\n⋆✦⎯⎯⎯⎯⎯⎯⎯⎯✦⋆\n𝐂𝐫𝐞𝐚𝐭𝐨𝐫 ➢ AMINUL-SORDAR`,
+          `${name} left the group and has been successfully re-added.\n⋆✦⎯⎯⎯⎯⎯⎯⎯⎯✦⋆\n𝐂𝐫𝐞𝐚𝐭𝐨𝐫 ➢ Willy-Magusib`,
           event.threadID
         );
       }
